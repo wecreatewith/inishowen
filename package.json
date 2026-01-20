@@ -1,0 +1,22 @@
+{
+  "name": "inishowen-peninsula",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Your guide to Inishowen Peninsula, Co. Donegal - beaches, walks, Malin Head, the Inishowen 100, and more",
+  "scripts": {
+    "build": "npm run build:css && npx @11ty/eleventy",
+    "build:css": "npx tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/style.css --minify",
+    "dev": "npm run build:css && npx @11ty/eleventy --serve --watch",
+    "dev:css": "npx tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/style.css --watch",
+    "pipeline": "node automation/pipeline.js",
+    "discover": "node automation/discover.js",
+    "generate": "node automation/generate.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "tailwindcss": "^3.4.0"
+  }
+}

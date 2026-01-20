@@ -1,0 +1,160 @@
+---
+layout: base.njk
+title: Home
+description: Your guide to Inishowen Peninsula, Co. Donegal - beaches, walks, Malin Head, the Inishowen 100, and more. Discover Ireland's most northern peninsula.
+---
+
+<!-- Hero Section -->
+<section class="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    <img
+      src="/assets/images/hero-inishowen.jpg"
+      alt="Dramatic coastline of the Inishowen Peninsula with Malin Head in the distance"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-ocean-950 via-ocean-950/40 to-transparent"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative w-full max-w-6xl mx-auto px-4 pb-12 md:pb-16">
+    <p class="text-ocean-300 text-sm uppercase tracking-widest mb-3">Discover</p>
+    <h2 class="font-display text-4xl md:text-6xl lg:text-7xl text-white leading-none mb-4">
+      Inishowen Peninsula
+    </h2>
+    <p class="text-xl md:text-2xl text-ocean-100 max-w-xl font-light">
+      Ireland's most northern peninsula. Home to Malin Head, stunning beaches, and the Wild Atlantic Way.
+    </p>
+  </div>
+</section>
+
+<!-- Latest News Section -->
+<section class="max-w-6xl mx-auto px-4 py-16">
+
+  <!-- Section Header -->
+  <div class="flex items-end justify-between border-b-2 border-ocean-950 pb-3 mb-8">
+    <h2 class="font-display text-3xl text-ocean-950">Latest News</h2>
+    <a href="/news/" class="text-sm font-medium text-ocean-600 hover:text-ocean-800 transition">
+      View all articles →
+    </a>
+  </div>
+
+  {% set posts = collections.latestPosts %}
+
+  {% if posts.length > 0 %}
+
+  <!-- Featured + Grid Layout -->
+  <div class="grid lg:grid-cols-12 gap-8">
+
+    <!-- Featured Article (Large) -->
+    {% set featured = posts[0] %}
+    <article class="lg:col-span-7 group">
+      <a href="{{ featured.url }}" class="block">
+        <!-- Category Bar -->
+        <div class="flex items-center gap-3 mb-4">
+          {% set catColor = 'ocean-600' %}
+          {% if featured.data.category == 'Nature' %}{% set catColor = 'category-nature' %}
+          {% elif featured.data.category == 'Council' %}{% set catColor = 'category-council' %}
+          {% elif featured.data.category == 'Community' %}{% set catColor = 'category-community' %}
+          {% elif featured.data.category == 'Business' %}{% set catColor = 'category-business' %}
+          {% elif featured.data.category == 'Events' %}{% set catColor = 'category-events' %}
+          {% elif featured.data.category == 'Tourism' %}{% set catColor = 'category-tourism' %}
+          {% endif %}
+
+          <span class="w-12 h-1 bg-{{ catColor }}"></span>
+          <span class="text-xs font-semibold uppercase tracking-wider text-{{ catColor }}">
+            {{ featured.data.category or 'News' }}
+          </span>
+        </div>
+
+        <!-- Headline -->
+        <h3 class="font-display text-3xl md:text-4xl text-gray-900 leading-tight mb-4 group-hover:text-ocean-700 transition-colors">
+          {{ featured.data.title }}
+        </h3>
+
+        <!-- Excerpt -->
+        <p class="text-gray-600 text-lg leading-relaxed mb-4">
+          {{ featured.data.excerpt or featured.content | striptags | truncate(180) }}
+        </p>
+
+        <!-- Meta -->
+        <div class="flex items-center gap-4 text-sm text-gray-500">
+          <time>{{ featured.data.date | dateFormat }}</time>
+          {% if featured.data.source %}
+          <span class="text-gray-300">|</span>
+          <span>via {{ featured.data.source }}</span>
+          {% endif %}
+        </div>
+      </a>
+    </article>
+
+    <!-- Secondary Articles (Sidebar) -->
+    <div class="lg:col-span-5 space-y-6">
+      {% for post in posts.slice(1, 4) %}
+      <article class="group border-b border-gray-200 pb-6 last:border-0">
+        <a href="{{ post.url }}" class="block">
+          <!-- Category -->
+          <span class="text-xs font-semibold uppercase tracking-wider
+            {% if post.data.category == 'Nature' %}text-category-nature
+            {% elif post.data.category == 'Council' %}text-category-council
+            {% elif post.data.category == 'Community' %}text-category-community
+            {% elif post.data.category == 'Business' %}text-category-business
+            {% elif post.data.category == 'Events' %}text-category-events
+            {% elif post.data.category == 'Tourism' %}text-category-tourism
+            {% else %}text-ocean-600{% endif %}
+          ">
+            {{ post.data.category or 'News' }}
+          </span>
+
+          <!-- Headline -->
+          <h3 class="font-display text-xl text-gray-900 leading-snug mt-2 mb-2 group-hover:text-ocean-700 transition-colors">
+            {{ post.data.title }}
+          </h3>
+
+          <!-- Date -->
+          <time class="text-sm text-gray-500">{{ post.data.date | dateFormat }}</time>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+
+  </div>
+
+  {% else %}
+  <!-- No posts -->
+  <div class="text-center py-16">
+    <p class="text-gray-500 text-lg">News articles coming soon.</p>
+  </div>
+  {% endif %}
+
+</section>
+
+<!-- About Section -->
+<section class="bg-ocean-950 text-white py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-ocean-400 text-sm uppercase tracking-widest mb-3">About Inishowen</p>
+        <h2 class="font-display text-3xl md:text-4xl mb-6">Ireland's Most Northern<br>Peninsula</h2>
+        <p class="text-ocean-100 leading-relaxed mb-4">
+          The Inishowen Peninsula is Ireland's largest peninsula and home to Malin Head — the most northerly point of mainland Ireland. Part of the Wild Atlantic Way, it offers dramatic coastlines, ancient history, and welcoming communities.
+        </p>
+        <p class="text-ocean-100 leading-relaxed mb-6">
+          Explore pristine beaches like Five Finger Strand, drive the scenic Inishowen 100, and discover why Star Wars chose Malin Head as a filming location.
+        </p>
+        <a href="/about/" class="inline-flex items-center text-white font-medium border-b-2 border-ocean-400 hover:border-white transition pb-1">
+          Learn more about this site
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+      <div class="text-center md:text-right">
+        <div class="inline-block text-left">
+          <div class="text-6xl md:text-8xl font-display text-ocean-400">100</div>
+          <div class="text-ocean-300 text-sm uppercase tracking-wider">km Scenic Drive</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

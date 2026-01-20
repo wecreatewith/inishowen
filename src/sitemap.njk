@@ -1,0 +1,51 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://inchisland.com/</loc>
+    <lastmod>{{ "now" | dateISO }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://inchisland.com/news/</loc>
+    <lastmod>{{ "now" | dateISO }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://inchisland.com/about/</loc>
+    <lastmod>{{ "now" | dateISO }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://inchisland.com/submit/</loc>
+    <lastmod>{{ "now" | dateISO }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://inchisland.com/inch-island-walk/</loc>
+    <lastmod>{{ "now" | dateISO }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://inchisland.com/inch-island-tide-times/</loc>
+    <lastmod>{{ "now" | dateISO }}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  {%- for post in collections.posts %}
+  <url>
+    <loc>https://inchisland.com{{ post.url }}</loc>
+    <lastmod>{{ post.data.date | dateISO }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  {%- endfor %}
+</urlset>

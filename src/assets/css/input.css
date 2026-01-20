@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  ::selection {
+    @apply bg-ocean-200 text-ocean-900;
+  }
+}
+
+@layer components {
+  /* Article content typography */
+  .article-content {
+    @apply text-lg leading-relaxed;
+  }
+
+  .article-content p {
+    @apply mb-6;
+  }
+
+  .article-content p:first-child {
+    @apply text-xl text-gray-800;
+  }
+
+  .article-content h2 {
+    @apply font-display text-2xl md:text-3xl text-gray-900 mt-12 mb-4;
+  }
+
+  .article-content h3 {
+    @apply font-display text-xl md:text-2xl text-gray-900 mt-10 mb-4;
+  }
+
+  .article-content h4 {
+    @apply font-semibold text-lg text-gray-900 mt-8 mb-3;
+  }
+
+  .article-content ul {
+    @apply my-6 space-y-2;
+  }
+
+  .article-content ul li {
+    @apply pl-6 relative;
+  }
+
+  .article-content ul li::before {
+    content: "";
+    @apply absolute left-0 top-3 w-2 h-2 bg-ocean-400 rounded-full;
+  }
+
+  .article-content ol {
+    @apply my-6 space-y-2 list-decimal pl-6;
+  }
+
+  .article-content ol li {
+    @apply pl-2;
+  }
+
+  .article-content a {
+    @apply text-ocean-600 underline decoration-ocean-300 underline-offset-2 hover:decoration-ocean-600 transition;
+  }
+
+  .article-content blockquote {
+    @apply my-8 pl-6 border-l-4 border-ocean-300 italic text-gray-600;
+  }
+
+  .article-content blockquote p {
+    @apply mb-0;
+  }
+
+  .article-content strong {
+    @apply font-semibold text-gray-900;
+  }
+
+  .article-content hr {
+    @apply my-12 border-gray-200;
+  }
+
+  /* Pull quote style */
+  .article-content .pullquote {
+    @apply my-12 text-2xl font-display text-center text-gray-700 px-8;
+  }
+
+  /* Enhanced article content - with drop cap */
+  .article-content-enhanced {
+    @apply text-lg leading-relaxed text-gray-700;
+  }
+
+  .article-content-enhanced p {
+    @apply mb-6;
+  }
+
+  /* Drop cap on first paragraph */
+  .article-content-enhanced > p:first-of-type::first-letter {
+    @apply float-left font-display text-6xl md:text-7xl leading-none mr-3 mt-1 text-gray-900;
+  }
+
+  .article-content-enhanced h2 {
+    @apply font-display text-2xl md:text-3xl text-gray-900 mt-14 mb-5 pb-3 border-b border-gray-200;
+  }
+
+  .article-content-enhanced h3 {
+    @apply font-display text-xl md:text-2xl text-gray-900 mt-10 mb-4;
+  }
+
+  .article-content-enhanced h4 {
+    @apply font-semibold text-lg text-gray-900 mt-8 mb-3;
+  }
+
+  .article-content-enhanced ul {
+    @apply my-8 space-y-3 pl-0;
+  }
+
+  .article-content-enhanced ul li {
+    @apply pl-8 relative;
+  }
+
+  .article-content-enhanced ul li::before {
+    content: "";
+    @apply absolute left-0 top-2.5 w-3 h-3 border-2 border-ocean-400 rounded-full;
+  }
+
+  .article-content-enhanced ol {
+    @apply my-8 space-y-3 list-none pl-0;
+    counter-reset: list-counter;
+  }
+
+  .article-content-enhanced ol li {
+    @apply pl-10 relative;
+    counter-increment: list-counter;
+  }
+
+  .article-content-enhanced ol li::before {
+    content: counter(list-counter);
+    @apply absolute left-0 top-0 w-6 h-6 flex items-center justify-center text-sm font-bold text-ocean-600 bg-ocean-100 rounded-full;
+  }
+
+  .article-content-enhanced a {
+    @apply text-ocean-600 underline decoration-ocean-300 decoration-2 underline-offset-2 hover:decoration-ocean-600 transition;
+  }
+
+  .article-content-enhanced blockquote {
+    @apply my-10 py-6 px-8 bg-gray-50 border-l-4 border-ocean-400 rounded-r-lg;
+  }
+
+  .article-content-enhanced blockquote p {
+    @apply mb-0 text-xl italic text-gray-600 font-light;
+  }
+
+  .article-content-enhanced strong {
+    @apply font-semibold text-gray-900;
+  }
+
+  .article-content-enhanced hr {
+    @apply my-14 border-none h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent;
+  }
+
+  .article-content-enhanced img {
+    @apply my-10 rounded-lg shadow-lg;
+  }
+
+  .article-content-enhanced figcaption {
+    @apply text-sm text-gray-500 text-center mt-3 italic;
+  }
+}
+

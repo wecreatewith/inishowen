@@ -1,0 +1,185 @@
+---
+layout: base.njk
+---
+
+{% set catColor = 'ocean-600' %}
+{% set catBg = 'ocean-50' %}
+{% set catBorder = 'ocean-200' %}
+{% if category == 'Nature' %}
+  {% set catColor = 'category-nature' %}
+  {% set catBg = 'green-50' %}
+  {% set catBorder = 'green-200' %}
+{% elif category == 'Council' %}
+  {% set catColor = 'category-council' %}
+  {% set catBg = 'slate-50' %}
+  {% set catBorder = 'slate-200' %}
+{% elif category == 'Community' %}
+  {% set catColor = 'category-community' %}
+  {% set catBg = 'amber-50' %}
+  {% set catBorder = 'amber-200' %}
+{% elif category == 'Business' %}
+  {% set catColor = 'category-business' %}
+  {% set catBg = 'teal-50' %}
+  {% set catBorder = 'teal-200' %}
+{% elif category == 'Events' %}
+  {% set catColor = 'category-events' %}
+  {% set catBg = 'purple-50' %}
+  {% set catBorder = 'purple-200' %}
+{% endif %}
+
+<article>
+  <!-- Article Header -->
+  <header class="relative bg-{{ catBg }} border-b border-{{ catBorder }}">
+    <!-- Decorative top accent -->
+    <div class="absolute top-0 left-0 right-0 h-1 bg-{{ catColor }}"></div>
+
+    <div class="max-w-4xl mx-auto px-4 py-16 md:py-20">
+      <!-- Category badge -->
+      <div class="flex items-center justify-center mb-8">
+        <span class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-{{ catColor }} border border-{{ catColor }} rounded-full">
+          {{ category or 'News' }}
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-gray-900 leading-tight text-center mb-8">
+        {{ title }}
+      </h1>
+
+      <!-- Meta line -->
+      <div class="flex flex-wrap items-center justify-center gap-3 text-sm text-gray-500">
+        <time datetime="{{ date }}" class="font-medium">{{ date | dateFormat }}</time>
+        {% if source %}
+        <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+        <span>via <a href="{{ sourceUrl }}" target="_blank" rel="noopener" class="text-{{ catColor }} hover:underline font-medium">{{ source }}</a></span>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Body -->
+  <div class="max-w-3xl mx-auto px-4">
+
+    <!-- Lead/Excerpt -->
+    {% if excerpt %}
+    <div class="py-10 border-b border-gray-200">
+      <p class="text-xl md:text-2xl text-gray-700 leading-relaxed font-light text-center italic">
+        {{ excerpt }}
+      </p>
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <div class="py-12">
+      <div class="article-content-enhanced">
+        {{ content | safe }}
+      </div>
+    </div>
+
+    <!-- Tags / Share Section -->
+    <div class="border-t border-gray-200 py-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <!-- Category tag -->
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-gray-400 uppercase tracking-wider">Filed under</span>
+          <span class="px-3 py-1 text-sm font-medium text-{{ catColor }} bg-{{ catBg }} rounded-full">
+            {{ category or 'News' }}
+          </span>
+        </div>
+
+        <!-- Share prompt -->
+        <div class="flex items-center gap-3 text-sm text-gray-500">
+          <span>Share this story</span>
+          <div class="flex items-center gap-2">
+            <a href="https://twitter.com/intent/tweet?url=https://inchisland.com{{ page.url }}&text={{ title | urlencode }}" target="_blank" rel="noopener" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition" title="Share on X">
+              <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://inchisland.com{{ page.url }}" target="_blank" rel="noopener" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition" title="Share on Facebook">
+              <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="mailto:?subject={{ title | urlencode }}&body=Read this article from Inch Island: https://inchisland.com{{ page.url }}" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition" title="Share via email">
+              <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Source Attribution Box -->
+    {% if sourceUrl %}
+    <div class="mb-12 p-6 md:p-8 bg-gray-50 rounded-xl border border-gray-200">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-white border border-gray-200">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 mb-2">This article is based on reporting from</p>
+          <a href="{{ sourceUrl }}" target="_blank" rel="noopener" class="inline-flex items-center text-lg font-display text-gray-900 hover:text-{{ catColor }} transition">
+            {{ source or 'the original source' }}
+            <svg class="w-4 h-4 ml-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+          <p class="text-xs text-gray-400 mt-2">We encourage you to read the original coverage</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Navigation -->
+    <div class="border-t border-gray-200 pt-8 pb-16">
+      <a href="/news/" class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-{{ catColor }} transition">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+        </svg>
+        Back to all news
+      </a>
+    </div>
+  </div>
+</article>
+
+<!-- Related Articles -->
+{% set relatedPosts = collections.posts | rejectattr("url", "equalto", page.url) %}
+{% set relatedPosts = relatedPosts | slice(0, 3) %}
+{% if relatedPosts[0] %}
+<section class="bg-ocean-950 text-white py-16 md:py-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Section header -->
+    <div class="text-center mb-12">
+      <p class="text-ocean-400 text-sm uppercase tracking-widest mb-3">Keep Reading</p>
+      <h2 class="font-display text-3xl md:text-4xl">More from Inch Island</h2>
+    </div>
+
+    <!-- Articles grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      {% for post in relatedPosts[0] %}
+      <article class="group">
+        <a href="{{ post.url }}" class="block p-6 rounded-xl bg-ocean-900/50 hover:bg-ocean-900 transition-colors">
+          <!-- Category -->
+          <span class="text-xs font-semibold uppercase tracking-wider
+            {% if post.data.category == 'Nature' %}text-green-400
+            {% elif post.data.category == 'Council' %}text-slate-300
+            {% elif post.data.category == 'Community' %}text-amber-400
+            {% elif post.data.category == 'Business' %}text-teal-400
+            {% elif post.data.category == 'Events' %}text-purple-400
+            {% else %}text-ocean-300{% endif %}
+          ">
+            {{ post.data.category or 'News' }}
+          </span>
+
+          <!-- Title -->
+          <h3 class="font-display text-xl text-white leading-snug mt-3 mb-4 group-hover:text-ocean-200 transition-colors">
+            {{ post.data.title }}
+          </h3>
+
+          <!-- Date -->
+          <time class="text-sm text-ocean-400">{{ post.data.date | dateFormat }}</time>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

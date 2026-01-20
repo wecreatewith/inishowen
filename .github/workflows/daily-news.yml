@@ -1,0 +1,71 @@
+name: Daily Topic Discovery
+
+on:
+  schedule:
+    # Run at 6:00 AM UTC (7:00 AM Irish time in winter, 8:00 AM in summer)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  discover-topics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create directories
+        run: |
+          mkdir -p automation/data
+          mkdir -p pending-topics
+
+      - name: Run topic discovery (Google + Facebook)
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+        run: node automation/pipeline.js --facebook
+
+      - name: Check for new topics
+        id: check_changes
+        run: |
+          if [[ -n $(git status --porcelain pending-topics/) ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "New topics discovered!"
+            ls -la pending-topics/
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No new topics today."
+          fi
+
+      - name: Commit and push new topics
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add pending-topics/
+          git add automation/data/
+          git commit -m "🔍 New topics discovered $(date +%Y-%m-%d)"
+          git push
+
+      - name: Summary
+        run: |
+          echo "## Daily Topic Discovery Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [[ "${{ steps.check_changes.outputs.has_changes }}" == "true" ]]; then
+            echo "✅ New topics saved to /pending-topics/" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Run \`/process-pending\` in Claude Code to research and write articles." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ No new topics found today." >> $GITHUB_STEP_SUMMARY
+          fi
