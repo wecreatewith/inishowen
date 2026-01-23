@@ -10,7 +10,12 @@ const SEARCH_QUERIES = [
   'Inishowen Peninsula news',
   'Inishowen Donegal',
   'Malin Head news',
-  'Buncrana news Donegal'
+  'Buncrana news Donegal',
+  'Carndonagh news Donegal',
+  'Moville news Donegal',
+  'Ballyliffin Clonmany news',
+  'Greencastle Donegal news',
+  '"Wild Atlantic Way" Inishowen'
 ];
 
 // Sources we recognise
@@ -152,6 +157,8 @@ function isTagOrArchivePage(url) {
     /wikipedia\.org/i,
     // Generic accommodation listings
     /accommodation.*listing/i,
+    // Our own site (don't discover ourselves)
+    /inishowenpeninsula\.com/i,
   ];
 
   return skipPatterns.some(pattern => pattern.test(url));

@@ -1,12 +1,12 @@
 /**
- * Inch Island Topic Discovery Pipeline
+ * Inishowen Peninsula Topic Discovery Pipeline
  *
  * Finds news topics and saves them for Claude Code to process.
  * Does NOT generate articles - that's done by the /process-pending skill.
  *
  * Sources:
- * - Google search for Inch Island news (default)
- * - Facebook pages: Fahan, Inch & Burt + Inch Hall (optional, use --facebook flag)
+ * - Google search for Inishowen news (default)
+ * - Facebook pages (optional, use --facebook flag)
  */
 
 import { discover } from './discover.js';
@@ -18,7 +18,7 @@ async function runPipeline() {
   const includeFacebook = process.argv.includes('--facebook');
 
   console.log('='.repeat(50));
-  console.log('INCH ISLAND TOPIC DISCOVERY');
+  console.log('INISHOWEN PENINSULA TOPIC DISCOVERY');
   console.log('='.repeat(50));
   console.log(`Started at: ${new Date().toISOString()}`);
   console.log(`Sources: Google${includeFacebook ? ' + Facebook' : ''}\n`);
@@ -27,7 +27,7 @@ async function runPipeline() {
   let facebookTopics = [];
 
   // Google discovery (always runs)
-  console.log('Searching Google for Inch Island news...');
+  console.log('Searching Google for Inishowen news...');
   console.log('-'.repeat(50));
 
   try {

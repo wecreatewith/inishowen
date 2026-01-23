@@ -3,8 +3,11 @@
  * Monitors local Facebook pages for community news and events
  *
  * Pages monitored:
- * - Fahan, Inch & Burt Parish (community page)
- * - Inch Hall (community centre)
+ * - Go Visit Inishowen (tourism)
+ * - Inishowen News
+ * - Buncrana community pages
+ * - Carndonagh community pages
+ * - Malin Head area
  *
  * This script finds potential topics from Facebook but does NOT generate articles.
  * Topics are saved to /pending-topics/ for Claude Code to research and write.
@@ -16,12 +19,24 @@
 // Facebook pages to monitor (using URLs for the official Apify scraper)
 const FACEBOOK_PAGES = [
   {
-    name: 'Fahan, Inch & Burt Parish',
-    url: 'https://www.facebook.com/fahaninchburt/'
+    name: 'Go Visit Inishowen',
+    url: 'https://www.facebook.com/GoVisitInishowen/'
   },
   {
-    name: 'Inch Hall',
-    url: 'https://www.facebook.com/profile.php?id=100064494500939'
+    name: 'Inishowen News',
+    url: 'https://www.facebook.com/inishowennews/'
+  },
+  {
+    name: 'Buncrana Town',
+    url: 'https://www.facebook.com/baboroarts/'  // TODO: verify correct Buncrana page
+  },
+  {
+    name: 'Carndonagh Community',
+    url: 'https://www.facebook.com/carndonagh/'  // TODO: verify correct Carn page
+  },
+  {
+    name: 'Malin Head Community',
+    url: 'https://www.facebook.com/malinheadcommunity/'  // TODO: verify
   }
 ];
 
